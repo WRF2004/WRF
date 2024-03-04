@@ -1,0 +1,44 @@
+#include <stdio.h>
+int puzzle[8][8];
+int start_row, start_column;
+int end_row, end_column;
+int n, m;
+int dr[] = {-1, 1, 0, 0};
+int dc[] = {0, 0, -1, 1};
+int visited[8][8];
+int count(int row, int col) {
+	if (row == end_row && col == end_column) {
+		return 1;
+	}
+	visited[row][col] = 1;
+	int routes = 0;
+    for (int i = 0; i < 4; i++) {
+        int newRow = row + dr[i];
+        int newCol = col + dc[i];
+        // 检查新位置是否合法
+        if (newRow >= 0 && newRow < n && newCol >= 0 && newCol < m && puzzle[newRow][newCol] == 0 && !visited[newRow][newCol]) {
+            routes += count(newRow, newCol); // 递归调用
+        }
+    }
+    visited[row][col] = 0; // 恢复未访问状态
+    return routes;
+}
+int main() {
+	scanf("%d",&n);
+	scanf("%d",&m);
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) {
+			scanf("%d",&puzzle[i][j]);
+		}
+	}
+	scanf("%d",&start_row);
+	scanf("%d",&start_column);
+	scanf("%d",&end_row);
+	scanf("%d",&end_column);
+	start_row -= 1;
+	start_column -= 1;
+	end_row -= 1;
+	end_column -= 1;
+	printf("%d",count(start_row, start_column));
+	return 0;
+}
