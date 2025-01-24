@@ -1,0 +1,32 @@
+注意Mysql只有在创建超级用户后才能使用！
+
+运行后端
+pip install mysqlclient
+pip install Pillow
+pip install djangorestframework-simplejwt
+pip install django-cors-headers
+python manage.py runserver
+
+
+运行前端
+cd frontend
+npm install
+npm run dev
+
+settings.py要修改的部分：
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",  # 你的前端地址
+    "http://localhost:5174",
+]
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',  # 不做修改
+        'NAME': 'minidb',  # 数据库名
+        'USER': 'root',  # 用户名
+        'PASSWORD': 'ypl',  # 密码
+        'HOST': '127.0.0.1',  # 主机
+        'PORT': '3306',  # 端口号（默认）
+    }
+}
